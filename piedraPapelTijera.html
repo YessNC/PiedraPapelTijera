@@ -3,10 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./piedraPapelTijera.css" />
     <title>Piedra, Papel o Tijera</title>
   </head>
   <body>
+    <div class="container">
     <h1>Piedra, Papel o Tijera</h1>
-    <script src="JS/piedraPapelTijera.js"></script>
+    <div class="options">
+      <button id="piedra" onclick="jugar(0)">Piedra 👊</button>
+      <button id="papel" onclick="jugar(1)">Papel 🖐</button>
+      <button id="tijera" onclick="jugar(2)">Tijera ✌</button>
+    </div>
+
+    <div class="score">
+      <h2>Contador</h2>
+      <div class="score__container">
+        <div class="score__player">
+          <h3>Jugador</h3>
+          <p><span id="player_name"></span> ha ganado <span id="player_score">0</span> veces
+          </p>
+        </div>
+        <div class="score__computer">
+          <h3>Computador</h3>
+          <p> PC ha ganado <span id="computer_score">0</span> veces</p>
+        </div>
+      </div>
+      <button id="reset" onclick="reiniciar()">Reiniciar</button>
+      <div id="resultado" class="result"></div>
+    <script src="./pptjs/piedraPapelTijera.js"></script>
   </body>
 </html>

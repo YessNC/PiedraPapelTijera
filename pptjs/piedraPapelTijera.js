@@ -7,37 +7,55 @@ let nombre = prompt("Ingresa tu nombre");
 let triunfos = 0;
 let perdidas = 0;
 
-while (triunfos < 3 && perdidas < 3) {
+document.getElementById("player_name").innerText = nombre;
+
+function mostrarEleccion(nombre, eleccion) {
+  const resultadoDiv = document.getElementById("resultado");
+  resultadoDiv.innerHTML += `${nombre} eligió ${opciones[eleccion]}`;
+}
+
+function actualizarMarcador() {
+  document.getElementById("player_score").innerText = triunfos;
+  document.getElementById("computer_score").innerText = perdidas;
+}
+
+function jugar(jugador) {
   let pc = aleatorio(0, 2);
-  let jugador = parseInt(
-    prompt("Elige 0 para piedra, 1 para papel y 2 para tijera"),
-    10
-  );
+  const resultadoDiv = document.getElementById("resultado");
+  resultadoDiv.innerHTML = "";
+  mostrarEleccion(nombre, jugador);
+  mostrarEleccion("PC", pc);
 
-  function mostrarEleccion(nombre, eleccion) {
-    alert(`${nombre} eligió ${opciones[eleccion]}`);
-  }
-
-  if (jugador >= 0 && jugador <= 2) {
-    mostrarEleccion(nombre, jugador);
-    mostrarEleccion("PC", pc);
-
-    if (jugador == pc) {
-      alert("EMPATE 🤝");
-    } else if (
-      (jugador == 0 && pc == 2) ||
-      (jugador == 1 && pc == 0) ||
-      (jugador == 2 && pc == 1)
-    ) {
-      alert("GANASTE 🎆🎉");
-      triunfos += 1;
-    } else {
-      alert("PERDISTE 😨😭");
-      perdidas += 1;
-    }
+  if (jugador == pc) {
+    resultadoDiv.innerHTML += "<span>EMPATE 🤝</span><br>";
+  } else if (
+    (jugador == 0 && pc == 2) ||
+    (jugador == 1 && pc == 0) ||
+    (jugador == 2 && pc == 1)
+  ) {
+    resultadoDiv.innerHTML += "<span>GANASTE 🎆🎉</span><br>";
+    triunfos += 1;
   } else {
-    3;
-    alert("Esa opción no existe 👎😫 ");
+    resultadoDiv.innerHTML += "<span>PERDISTE 😨😭</span><br>";
+    perdidas += 1;
+  }
+  actualizarMarcador();
+  if (triunfos >= 3 || perdidas >= 3) {
+    alert(
+      `El juego ha terminado. Ganaste ${triunfos} veces y perdiste ${perdidas} veces!`
+    );
+    reiniciar();
   }
 }
-alert(`Ganaste ${triunfos} veces y perdiste ${perdidas} veces.`);
+
+function reiniciar() {
+  triunfos = 0;
+  perdidas = 0;
+  actualizarMarcador();
+  document.getElementById("resultado").innerHTML = "";
+  window.location.reload();
+}
+
+window.onload = function () {
+  actualizarMarcador();
+};
